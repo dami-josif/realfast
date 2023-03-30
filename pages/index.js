@@ -20,16 +20,16 @@ export default function Home() {
               <Image width={30} height={38} src='/realfast_logo.png'/>
             </li>
             <li>
-              <Link href='#'>Find Jobs</Link>
+              <Link href='#' className={styles.navText}>Find Jobs</Link>
             </li>
           </ul>
 
-          <ul>
-            <li>
-              <Link href='' className={styles.navText}>Sign In</Link>
+          <ul className={styles.navSection}>
+            <li className={styles.seperator}>
+              <Link href='#' className={styles.navText}>Sign In</Link>
             </li>
             <li>
-              <Link href=''>Post a Job</Link>
+              <Link href='#' className={styles.navText}>Post a Job</Link>
             </li>
           </ul>
         </nav>
@@ -42,5 +42,6 @@ export default function Home() {
   navSection: 'flex flex-row space-x-3',
   brandSection: 'flex flex-row gap-2',
   brandName: 'font-reading text-2xl text-purple-600 font-bold',
-  navText: 'text-gray-700 hover:text-purple-600'
+  navText: 'text-gray-700 hover:text-purple-600',
+  seperator: 'pr-3 border-r-2 border-gray-400'
  }
