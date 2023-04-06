@@ -1,19 +1,32 @@
-import JobCard from "./components/jobCard";
-import { jobsData } from "@/data/job-data";
+import { useEffect } from "react";
+import JobCard from "@/components/JobCard"; 
+import { jobsData } from "@/data/jobsdata";
 
+export default function AboutUs () {
 
-export default function AboutUs() {
-  return (
-    <div>
-        {/* <JobCard title="Remote React NextJS Developer" description="New Role"/>
-        <JobCard title="Remote Python Developer" description="Senior Role"/> */}
+    //run something after page has been render
+    useEffect(() => {
+        const rNums = [];
 
-
-        {
-          jobsData.map((job) => {
-            return <JobCard key={job.id} title={job.title} description={job.description}/>
-          })  
+        for(let count = 0;count < 100;count++){
+            rNums.push(Math.round(Math.random() * 100000));
         }
-    </div>
-  )
+
+        console.log(rNums);
+    },[]);
+
+    return (
+       <div>
+            {
+                jobsData.map(job => {
+                    return (
+                        <JobCard title={job.title} location={job.loc} key={job.id}>
+                            <h1>Info block</h1>
+                            <p>Some information</p>
+                        </JobCard>
+                    )
+                })
+            }
+       </div>
+    )
 }

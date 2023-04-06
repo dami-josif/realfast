@@ -4,4 +4,4 @@ export const jobsData = [
     {id:7,title:'React Native UI Designer',loc:'Lagos'},
     {id:9,title:'Product Designer',loc:'Port Harcourt'},
     {id:1,title:'Android and iOS Developer',loc:'Enugu'},
-]
+];
