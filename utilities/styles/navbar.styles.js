@@ -2,7 +2,7 @@ export const navbarStyles = {
     navBar:'h-[60px] flex flex-row justify-between items-center px-3 border border-gray-200 shadow-md',
     navSection:'flex flex-row space-x-3',
     brandName:'font-reading text-2xl text-purple-600 font-bold',
-    navText:'text-gray-700 hover:text-purple-600',
+    navText:'font-bold text-gray-700 hover:text-purple-600',
     responsiveMenuItems:'hidden sm:block',
     menu:'w-[38px] h-[38px] text-gray-500',
     mobileNav:'h-screen w-full bg-black/80 absolute top-0 left-0',
