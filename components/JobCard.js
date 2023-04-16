@@ -38,7 +38,7 @@ export default function JobCard() {
 }
 
 const styles={
-  card:'border border-gray-200 rounded-md p-3',
+  card:'border border-gray-200 rounded-md p-3 mb-4',
   head:'flex flex-col md:flex-row justify-between',
   titleBlock:'',
   jobTtitle:'text-3xl font-reading',
@@ -48,7 +48,7 @@ const styles={
   body:'border-t border-gray-300',
   description:'text-gray-800',
   metaBlock:'flex flex-row justify-between mt-4',
-  wageBlock:'flex flex-row gap-3',
+  wageBlock:'flex flex-row items-center gap-3',
   metaText:'text-lg font-bold',
   apply:'h-[52px] bg-indigo-800 flex justify-center items-center text-white font-bold px-3 rounded-md cursor-pointer'
 }
