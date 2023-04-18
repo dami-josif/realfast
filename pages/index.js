@@ -34,9 +34,9 @@ export default function Home() {
           </div>
 
           <div className={styles.otherActions}>
-            <button className={styles.quickFinder}>Recent Jobs</button>
-            <button className={styles.quickFinder}>High Paying Jobs</button>
-            <button className={styles.quickFinder}>Closing Soon</button>
+            <button className={styles.quickFinder}>RECENT JOBS</button>
+            <button className={styles.quickFinder}>HIGH PAYING JOBS</button>
+            <button className={styles.quickFinder}>CLOSING SOON</button>
           </div>
         </div>
       </main>
@@ -46,12 +46,12 @@ export default function Home() {
 
 const styles={
   container:'w-full flex flex-col justify-center items-center px-16',
-  wrapper:'w-full w-[720px]',
-  searchBlock:'w-full',
+  wrapper:'w-full w-[720px] flex flex-col gap-16 ',
+  searchBlock:'w-full ',
   searchPanel:'w-full flex flex-row gap-1',
   search:'w-full border border-indigo-200 rounded-full py-4 px-5',
-  searchBtn:'bg-indigo-800 flex justify-center items-center text-white font-bold py-5 px-3 rounded-full cursor-pointer',
-  message:'',
-  otherActions:'',
-  quickFinder:''
+  searchBtn:'bg-indigo-800 flex justify-center items-center text-white font-bold py-5 px-6 rounded-full cursor-pointer',
+  message:'text-center mt-2',
+  otherActions:'flex flex-row gap-4 justify-center',
+  quickFinder:'md:w-[200px] md:h-[70px] bg-indigo-800 text-white text-sm font-bold border shadow-lg'
 }
