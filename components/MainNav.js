@@ -3,13 +3,16 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { HiOutlineMenu } from 'react-icons/hi';
 import { AiOutlineClose,AiOutlineArrowRight } from 'react-icons/ai';
+import { useRouter } from 'next/router';
 
 export default function MainNav() {
     const [showMobileNav,setShowMobileNav] = useState(false);
 
+    const router = useRouter();
+
     return (
         <div>
-            <nav className={navbarStyles.navBar} id='mainNav'>
+            <nav className={navbarStyles.navBar} id='mainNav' style={{backgroundColor:router.asPath.split('/').includes('talents') ? '#ddd6fe' : null}}>
             <ul className={navbarStyles.navSection}>
                 <li className={navbarStyles.responsiveMenuItems}>
                 <Link href='/' className={navbarStyles.brandName}>Real Fast</Link>

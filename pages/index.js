@@ -46,12 +46,12 @@ export default function Home() {
 
 const styles={
   container:'w-full flex flex-col justify-center items-center px-16',
-  wrapper:'w-full w-[720px] flex flex-col gap-16 ',
-  searchBlock:'w-full ',
-  searchPanel:'w-full flex flex-row gap-1',
-  search:'w-full border border-indigo-200 rounded-full py-4 px-5',
+  wrapper:'md:w-full  flex flex-col gap-16 ',
+  searchBlock:'md:w-full ',
+  searchPanel:'md:w-full flex flex-row gap-1',
+  search:'md:w-full border border-indigo-200 rounded-full py-4 px-5',
   searchBtn:'bg-indigo-800 flex justify-center items-center text-white font-bold py-5 px-6 rounded-full cursor-pointer',
-  message:'text-center mt-2',
+  message:'text-center mt-2 font-bold',
   otherActions:'flex flex-row gap-4 justify-center',
   quickFinder:'md:w-[200px] md:h-[70px] bg-indigo-800 text-white text-sm font-bold border shadow-lg'
 }
