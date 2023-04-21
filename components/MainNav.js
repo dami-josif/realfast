@@ -52,7 +52,7 @@ export default function MainNav() {
             <div className={navbarStyles.halfScreenMenuBlock}>
                 <ul className={navbarStyles.mobileMenuItems}>
                 <li className={navbarStyles.mobileMenuItem}>
-                    <Link href='#' className={navbarStyles.mobileMenuText}>Home</Link>
+                    <Link href='/'  className={navbarStyles.mobileMenuText} onClick={() => setShowMobileNav(false)}>Home</Link>
                 </li>
                 <li className={navbarStyles.mobileMenuItem}>
                     <Link href='#' className={navbarStyles.mobileMenuText}>Find Jobs</Link>
@@ -69,11 +69,11 @@ export default function MainNav() {
                 </ul>
 
                 <div className={navbarStyles.mobileBottomItems}>
-                <Link href='#' className={navbarStyles.signinBtn}>
+                <Link href='#' className={navbarStyles.authBtn}>
                     <span className={navbarStyles.btnItems}>Sign in</span>
                     <AiOutlineArrowRight className={navbarStyles.btnItems}/></Link>
-                <Link href='#' className={navbarStyles.createAcctBtn}>
-                    <span>Create account</span>
+                <Link href='#' className={navbarStyles.authBtn} style={{backgroundColor:'#3730a3',color:'#fff'}}>
+                    <span className={navbarStyles.btnItems}>Create account</span>
                     <AiOutlineArrowRight />
                 </Link>
                 </div>
@@ -96,8 +96,8 @@ const navbarStyles = {
     mobileMenuItems:'flex flex-col gap-3 pt-[60px] pr-4',
     mobileMenuItem:'text-end',
     mobileMenuText:'text-[20px] font-reading text-gray-400',
-    mobileBottomItems:'px-3',
-    signinBtn:'block w-full h-[58px] flex flex-row justify-between items-center px-3 bg-pink-400 rounded-md',
+    mobileBottomItems:'flex flex-col gap-2 px-3 pb-3 ',
+    authBtn:'block w-full h-[58px] flex flex-row justify-between items-center px-3 bg-pink-400 rounded-md',
     btnItems:'text-xl',
     createAcctBtn:''
   }

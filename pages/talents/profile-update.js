@@ -1,12 +1,40 @@
 import {useState,useEffect} from "react"
 import Head from 'next/head'
+import { useFormik } from "formik";
+import * as yup from 'yup';
 
+//create a validation schema (validation rules)
+const fieldsSchema = yup.object().shape({
+    firstName:yup.string().required('Please,fill this field').min(2,'please, enter two or more character'),
+    lastName:yup.string().required('Please,fill this field').min(2,'please, enter two or more character'),
+    phoneNumber:yup.string().required().min(10).max(17),
+    address:yup.string().required('Please fill this field').min(18),
+    gender:yup.string().notOneOf(['Not Specified']),
+
+});
 export default function profileUpdate() {
     const [screenHeight, setScreenHeight] = useState(0);
+
 
   useEffect(()=>{
     setScreenHeight(window.innerHeight - 60);
   },[])
+
+
+  const {values, handleBlur, handleChange, errors, handleSubmit, touched } = useFormik({
+    validationSchema:fieldsSchema,
+    initialValues:{
+        firstName:'',
+        lastName:'',
+        phoneNumber:'',
+        address:'',
+        dob:'',
+        gender:''
+    },
+    onSubmit:(values)=>{
+        console.log(values.firstName);
+    }
+  });
   return (
     <>
         <Head>
@@ -19,38 +47,46 @@ export default function profileUpdate() {
             <div className={styles.wrapper}>
                 <h2 className={styles.title}>Update Your Profile</h2>
 
-                <form action="">
+                <form onSubmit={handleSubmit}>
                     <div className={styles.inputBlockRow}>
                         <div className={styles.inputBlock}>
                             <label className={styles.label} htmlFor="">First Name</label>
-                            <input type="text" placeholder="first & middle name" className={styles.inputField} />
+                            <input id="firstName" type="text" placeholder="first & middle name" className={styles.inputField} value={values.firstName} onChange={handleChange} onBlur={handleBlur
+                            }/>
+                            {errors.firstName && touched.firstName ? <p className={styles.formError} style={{color:'red'}}>{errors.firstName}</p> : null}
                         </div>
                         <div className={styles.inputBlock}>
                             <label className={styles.label} htmlFor="">Last Name</label>
-                            <input type="text" placeholder="surname" className={styles.inputField} />
+                            <input id="lastName" type="text" placeholder="surname" className={styles.inputField} value={values.lastName} onChange={handleChange} onBlur={handleBlur}  />
+                            {errors.lastName && touched.lastName ? <p className={styles.formError} style={{color:'red'}}>{errors.lastName}</p> : null}
                         </div>
                     </div>
                     <div className={styles.inputBlock}>
                         <label className={styles.label} htmlFor="">PhoneNumber</label>
-                        <input type="tell" placeholder="phone number" className={styles.inputField} />
+                        <input id="phoneNumber" type="tell" placeholder="phone number" className={styles.inputField} value={values.phoneNumber} onChange={handleChange} onBlur={handleBlur} />
+                        {errors.phoneNumber && touched.phoneNumber ? <p className={styles.formError} style={{color:'red'}}>{errors.phoneNumber}</p> : null}
                         <label className={styles.label} htmlFor="">Address</label>
-                        <input type="text" placeholder="contact address" className={styles.inputField} />
+                        <input id="address" type="text" placeholder="contact address" className={styles.inputField} value={values.address} onChange={handleChange} onBlur={handleBlur}/>
+                        {errors.address && touched.address ? <p className={styles.formError} style={{color:'red'}}>{errors.address}</p> : null}
                     </div>
 
                     <div className={styles.inputBlockRow}>
                         <div className={styles.inputBlock}>
                             <label className={styles.label} htmlFor="">Date of Birth</label>
-                            <input type="date" className={styles.inputField} />
+                            <input id="dob" type="date" className={styles.inputField} value={values.dob} onChange={handleChange} onBlur={handleBlur}/>
+                            {errors.dob && touched.dob ? <p className={styles.formError} style={{color:'red'}}>{errors.dob}</p> : null}
                         </div>
                         <div className={styles.inputBlock}>
-                            <label className={styles.label} htmlFor="">Gender</label>
-                            <select className={styles.inputField}>
-                                <option value="Not Specified">Not Specified</option>
-                                <option value="Female">Female</option>
-                                <option value="Male">Male</option>
+                            <label className={styles.label}>Gender</label>
+                            <select id="gender" className={styles.inputField} value={values.gender} onChange={handleChange} onBlur={handleBlur}>
+                                <option value="Not Specified">not Specified</option>
+                                <option value="Female">female</option>
+                                <option value="Male">male</option>
                             </select>
+                            {errors.gender && touched.gender ? <p className={styles.formError} style={{color:'red'}}>{errors.gender}</p> : null}
                         </div>
                     </div>
+                    <button type="submit" className={styles.submitBtn}>UPDATE PROFILE</button>
                 </form>
             </div>
 
@@ -61,11 +97,13 @@ export default function profileUpdate() {
 }
 
 const styles={
-  container:'w-full flex flex-col justify-center items-center px-16',
+  container:'w-full flex flex-col justify-center items-center py-10',
   wrapper:'md:w-full  flex flex-col gap-16',
   title:'text-xl text-center',
   inputBlockRow:'w-full flex flex-col md:flex-row md:space-x-3',
   inputBlock:'w-full',
   label:'font-bold md:mb-3',
   inputField:'w-full border-2 border-gray-400 py-3 px-4 rounded',
+  submitBtn:'content-end mt-3 border-2 bg-indigo-800 text-white font-bold py-3 px-4 rounded',
+  formError:'font-semibold text-xs'
 }
