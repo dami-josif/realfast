@@ -51,8 +51,7 @@ export default function profileUpdate() {
                     <div className={styles.inputBlockRow}>
                         <div className={styles.inputBlock}>
                             <label className={styles.label} htmlFor="">First Name</label>
-                            <input id="firstName" type="text" placeholder="first & middle name" className={styles.inputField} value={values.firstName} onChange={handleChange} onBlur={handleBlur
-                            }/>
+                            <input id="firstName" type="text" placeholder="first & middle name" className={styles.inputField} value={values.firstName} onChange={handleChange} onBlur={handleBlur}/>
                             {errors.firstName && touched.firstName ? <p className={styles.formError} style={{color:'red'}}>{errors.firstName}</p> : null}
                         </div>
                         <div className={styles.inputBlock}>
