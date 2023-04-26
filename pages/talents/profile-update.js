@@ -12,6 +12,7 @@ const fieldsSchema = yup.object().shape({
     gender:yup.string().notOneOf(['Not Specified']),
 
 });
+
 export default function profileUpdate() {
     const [screenHeight, setScreenHeight] = useState(0);
 

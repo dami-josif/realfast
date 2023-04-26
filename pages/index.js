@@ -1,11 +1,13 @@
 import Head from 'next/head';
-import { useState } from 'react';
-import { useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { AppContext } from '@/settings/context/appContext';
 import { GiMagnifyingGlass } from 'react-icons/gi'
 
 
 export default function Home() {
   const [screenHeight, setScreenHeight] = useState(0);
+  const {uid,setUid,email,setEmail} = useContext(AppContext);
+  
 
   useEffect(()=>{
     setScreenHeight(window.innerHeight - 60);
