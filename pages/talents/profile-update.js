@@ -1,4 +1,5 @@
-import {useState,useEffect} from "react"
+import {useState,useEffect,useContext} from "react"
+import { AppContext } from "@/settings/context/appContext";
 import Head from 'next/head'
 import { useFormik } from "formik";
 import * as yup from 'yup';
@@ -15,6 +16,7 @@ const fieldsSchema = yup.object().shape({
 
 export default function profileUpdate() {
     const [screenHeight, setScreenHeight] = useState(0);
+    const {uid,email} = useContext(AppContext);
 
 
   useEffect(()=>{
@@ -46,7 +48,7 @@ export default function profileUpdate() {
         </Head>
         <main className={styles.container} style={{height:`${screenHeight}px`}}>
             <div className={styles.wrapper}>
-                <h2 className={styles.title}>Update Your Profile</h2>
+                <h2 className={styles.title}>Update Your Profile {email == undefined ? null : email} </h2>
 
                 <form onSubmit={handleSubmit}>
                     <div className={styles.inputBlockRow}>
@@ -107,3 +109,5 @@ const styles={
   submitBtn:'content-end mt-3 border-2 bg-indigo-800 text-white font-bold py-3 px-4 rounded',
   formError:'font-semibold text-xs'
 }
+
+// if signin, person shouldnt visit sign page, automatically back to profile update
