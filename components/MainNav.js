@@ -46,7 +46,7 @@ export default function MainNav() {
             <ul className={navbarStyles.navSection}>
                 <li className={navbarStyles.responsiveMenuItems} 
                 style={{borderRight:'2px solid gray',paddingRight:8}}>
-                <Link href='#' className={navbarStyles.navText}>Sign in</Link>
+                <Link href='/signin' className={navbarStyles.navText}>Sign in</Link>
                 </li>
                 <li className={navbarStyles.responsiveMenuItems}>
                 <Link href='#' className={navbarStyles.navText}>Post a job</Link>

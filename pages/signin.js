@@ -6,6 +6,9 @@ import { useFormik } from "formik";
 import * as yup from 'yup';
 import { auth } from "@/settings/firebase/firebase.setup";
 import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import {FcGoogle} from 'react-icons/fc';
+import {AiFillGithub} from 'react-icons/ai';
+import {signIn, signin} from 'next-auth/react';
 
 //create a validation schema (validation rules)
 const fieldsSchema = yup.object().shape({
@@ -19,8 +22,11 @@ export default function Signin () {
 
     const router = useRouter();
 
+    const handleNextAuthSignin = () =>{
+        signIn('google');
+    }
+
     useEffect(() => {
-        uid 
         setScreenHeight(window.innerHeight - 60);
     },[]);
 
@@ -93,6 +99,11 @@ export default function Signin () {
 
                     <button type="submit" className={styles.submitBtn}>Sign in</button>
                 </form>
+                <p className="text-lg text-center my-2 font-bold">OR, Sign in with</p>
+                <div className={styles.or}>
+                    <button className={styles.signinBtn } onClick={handleNextAuthSignin}><FcGoogle/></button>
+                    <button className={styles.signinBtn }><AiFillGithub/></button>
+                </div>
             </div>
         </main>
         </>
@@ -109,5 +120,7 @@ const styles = {
     label:'text-gray-500 mb-2',
     inputField:'w-full block border border-gray-200 py-5 px-4 rounded-full',
     submitBtn:'w-full bg-indigo-800 py-5 px-4 rounded-full text-lg text-white',
-    formError:'text-xs'
+    formError:'text-xs',
+    or:'w-full flex flex-row gap-2 text-4xl justify-center mb-5',
+    signinBtn:'w-full px-3 py-4 flex justify-center rounded-full border border-gray-400'
 }
