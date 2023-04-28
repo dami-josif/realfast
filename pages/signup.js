@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { useFormik } from "formik";
 import * as yup from 'yup';
 import { auth } from "@/settings/firebase/firebase.setup";
-import { createUserWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import { createUserWithEmailAndPassword,onAuthStateChanged } from "firebase/auth";
 
 const passwordRules = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}$/; //regular expression
 
@@ -16,9 +16,9 @@ const fieldsSchema = yup.object().shape({
     passwordConfirmation:yup.string().oneOf([yup.ref('password'),null],'password must match')
 });
 
-export default function ProfileUpdate () {
+export default function Signup () {
     const [screenHeight,setScreenHeight] = useState(0);
-    const {uid,setUid,email,setEmail} = useContext(AppContext);
+    const { uid,setUid,email,setEmail } = useContext(AppContext);
 
     const router = useRouter();
 
@@ -35,10 +35,10 @@ export default function ProfileUpdate () {
         },
         onSubmit:(values) => {
             createUserWithEmailAndPassword(auth,values.email,values.password)
-            .then(()=>{
-                console.log('Account signup was successful');
-
-                onAuthStateChanged(auth, (user) =>{
+            .then(() => {
+                console.log('Account signup was successfull');
+                
+                onAuthStateChanged(auth,(user) => {
                     setUid(user.uid);
                     setEmail(user.email);
                 });
@@ -59,7 +59,7 @@ export default function ProfileUpdate () {
         </Head>
         <main className={styles.container} style={{height:`${screenHeight}px`}}>
             <div className={styles.wrapper}>
-                <h2 className={styles.title}>Create Account</h2>
+                <h2 className={styles.title}>Create a RealFast account</h2>
 
                 <form autoComplete="off" onSubmit={handleSubmit}>
                     <div className={styles.inputBlockMain}>
@@ -118,7 +118,7 @@ export default function ProfileUpdate () {
 const styles = {
     container:'w-full flex flex-col justify-center items-center px-16',
     wrapper:'w-full md:w-[720px] flex flex-col gap-16',
-    wrapper:'font-heading md:w-[720px] flex flex-col gap-16',
+    title:'font-heading text-3xl text-indigo-900 text-center',
     inputBlockRow:'w-full flex flex-col md:flex-row md:gap-3 md:mb-4',
     inputBlock:'w-full mb-4',
     inputBlockMain:'w-full mb-4',
