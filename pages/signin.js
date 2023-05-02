@@ -8,7 +8,8 @@ import { auth } from "@/settings/firebase/firebase.setup";
 import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import {FcGoogle} from 'react-icons/fc';
 import {AiFillGithub} from 'react-icons/ai';
-import {signIn, signin} from 'next-auth/react';
+import {signIn} from 'next-auth/react';
+import { useSession } from "next-auth/react";
 
 //create a validation schema (validation rules)
 const fieldsSchema = yup.object().shape({
@@ -19,12 +20,17 @@ const fieldsSchema = yup.object().shape({
 export default function Signin () {
     const [screenHeight,setScreenHeight] = useState(0);
     const { uid,setUid,email,setEmail } = useContext(AppContext);
+    const {data:session} = useSession();
+
+    console.log(session);
 
     const router = useRouter();
 
     const handleNextAuthSignin = () =>{
         signIn('google');
     }
+
+    session ? router.push('/talents') : null;// done on client side
 
     useEffect(() => {
         setScreenHeight(window.innerHeight - 60);
@@ -102,7 +108,7 @@ export default function Signin () {
                 <p className="text-lg text-center my-2 font-bold">OR, Sign in with</p>
                 <div className={styles.or}>
                     <button className={styles.signinBtn } onClick={handleNextAuthSignin}><FcGoogle/></button>
-                    <button className={styles.signinBtn }><AiFillGithub/></button>
+                    <button className={styles.signinBtn } onClick={()=> signIn('github')}><AiFillGithub/></button>
                 </div>
             </div>
         </main>
