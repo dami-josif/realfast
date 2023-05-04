@@ -8,6 +8,8 @@ import { auth } from "@/settings/firebase/firebase.setup";
 import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import {FcGoogle} from 'react-icons/fc';
 import {AiFillGithub} from 'react-icons/ai';
+import {FiTwitter} from 'react-icons/fi';
+import {BsInstagram} from 'react-icons/bs';
 import {signIn} from 'next-auth/react';
 import { useSession } from "next-auth/react";
 
@@ -109,6 +111,8 @@ export default function Signin () {
                 <div className={styles.or}>
                     <button className={styles.signinBtn } onClick={handleNextAuthSignin}><FcGoogle/></button>
                     <button className={styles.signinBtn } onClick={()=> signIn('github')}><AiFillGithub/></button>
+                    <button className={styles.signinBtn } onClick={()=> signIn('twitter')}><FiTwitter/></button>
+                    <button className={styles.signinBtn } onClick={()=> signIn('instagram')}><BsInstagram/></button>
                 </div>
             </div>
         </main>
