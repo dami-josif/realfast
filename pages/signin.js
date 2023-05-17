@@ -7,11 +7,13 @@ import * as yup from 'yup';
 import { auth } from "@/settings/firebase/firebase.setup";
 import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import {FcGoogle} from 'react-icons/fc';
-import {AiFillGithub} from 'react-icons/ai';
+import {AiFillGithub,AiOutlineUndo} from 'react-icons/ai';
 import {FiTwitter} from 'react-icons/fi';
 import {BsFacebook} from 'react-icons/bs';
 import {signIn} from 'next-auth/react';
-import { useSession } from "next-auth/react";
+import { getServerSession } from "next-auth/next";
+import { NextAuthOptions } from "./api/auth/[...nextauth]";
+// import { useSession } from "next-auth/react";
 
 //create a validation schema (validation rules)
 const fieldsSchema = yup.object().shape({
@@ -21,10 +23,11 @@ const fieldsSchema = yup.object().shape({
 
 export default function Signin () {
     const [screenHeight,setScreenHeight] = useState(0);
+    const [authChoice,setAuthChoice] = useState(false);
     const { uid,setUid,email,setEmail } = useContext(AppContext);
-    const {data:session} = useSession();
+    // const {data:session} = useSession();
 
-    console.log(session);
+    // console.log(session);
 
     const router = useRouter();
 
@@ -32,7 +35,7 @@ export default function Signin () {
         signIn('google');
     }
 
-    session ? router.push('/talents') : null;// done on client side
+    // session ? router.push('/talents') : null;// done on client side
 
     useEffect(() => {
         setScreenHeight(window.innerHeight - 60);
@@ -72,6 +75,12 @@ export default function Signin () {
                 <h2 className={styles.title}>Sign in to your RealFast account</h2>
 
                 <form autoComplete="off" onSubmit={handleSubmit}>
+                    <div className="flex justify-end">
+                        <p className="text-md text-indigo-700 flex flex-row gap-3" onClick={() => authChoice ? setAuthChoice(false) : setAuthChoice(true)}>
+                            <span>Sign in with {authChoice ? 'credentials' : 'email'}</span>
+                            <AiOutlineUndo className="text-indigo-500 text-2xl"/>
+                        </p>
+                    </div>
                     <div className={styles.inputBlockMain}>
                         <label className={styles.label}>Email address</label>
                         <input 
@@ -89,7 +98,7 @@ export default function Signin () {
                         }
                     </div>
 
-                    <div className={styles.inputBlockMain}>
+                    <div className={styles.inputBlockMain} style={{display:authChoice ? 'none' : 'block'}}>
                         <label className={styles.label}>Password</label>
                         <input 
                         id="password"
@@ -106,7 +115,13 @@ export default function Signin () {
                     </div>
 
                     <button type="submit" className={styles.submitBtn}
-                    onClick={()=>signIn('credentials',{email:values.email,password:values.password,redirect:false})}>Sign in</button>
+                    onClick={()=>{
+                        if (authChoice) {
+                            signIn('email')
+                        }else{
+                            signIn('credentials',{email:values.email,password:values.password,redirect:false})
+                        }
+                    }}>Sign in</button>
                 </form>
                 <p className="text-lg text-center my-2 font-bold">OR, Sign in with</p>
                 <div className={styles.or}>
@@ -119,6 +134,28 @@ export default function Signin () {
         </main>
         </>
     )
+}
+
+export async function getServerSideProps (context){
+    const session = await getServerSession(context.req,context.res,NextAuthOptions);
+
+    //if there is an active session, redirect to talent dashboard
+    if (!session) {
+        console.log('FROM SERVER SIDE>>>> no session');
+    }else if(session){
+        console.log('FROM SERVER SIDE',session);
+
+        return {
+            redirect:{
+                destination:'/talents',
+                permanent:false,
+            }
+        }
+    }
+
+    return{
+        props:{session,}
+    }
 }
 
 const styles = {
