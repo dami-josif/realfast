@@ -25,17 +25,12 @@ export default function Signin () {
     const [screenHeight,setScreenHeight] = useState(0);
     const [authChoice,setAuthChoice] = useState(false);
     const { uid,setUid,email,setEmail } = useContext(AppContext);
-    // const {data:session} = useSession();
-
-    // console.log(session);
 
     const router = useRouter();
 
     const handleNextAuthSignin = () =>{
         signIn('google');
     }
-
-    // session ? router.push('/talents') : null;// done on client side
 
     useEffect(() => {
         setScreenHeight(window.innerHeight - 60);
@@ -48,16 +43,16 @@ export default function Signin () {
             password:'',
         },
         onSubmit:(values) => {
-            // signInWithEmailAndPassword(auth,values.email,values.password)
-            // .then(() => {
-            //     onAuthStateChanged(auth,(user) => {
-            //         setUid(user.uid);
-            //         setEmail(user.email);
-            //     })
+            signInWithEmailAndPassword(auth,values.email,values.password)
+            .then(() => {
+                onAuthStateChanged(auth,(user) => {
+                    setUid(user.uid);
+                    setEmail(user.email);
+                })
 
-            //     router.push('/talents/profile-update')
-            // })
-            // .catch(error => console.log(error));
+                router.push('/talents/profile-update')
+            })
+            .catch(error => console.log(error));
         } 
         
     });
@@ -140,21 +135,28 @@ export async function getServerSideProps (context){
     const session = await getServerSession(context.req,context.res,NextAuthOptions);
 
     //if there is an active session, redirect to talent dashboard
-    if (!session) {
-        console.log('FROM SERVER SIDE>>>> no session');
-    }else if(session){
-        console.log('FROM SERVER SIDE',session);
-
-        return {
-            redirect:{
-                destination:'/talents',
-                permanent:false,
+    if(session){
+       if (session.user.accountType == 'talent') {
+            return {
+                redirect:{
+                    destination:'/talents',
+                    permanent:false,
+                }
             }
-        }
+       }else if(session.user.accountType == 'org') {
+            return {
+                redirect:{
+                    destination:'/org',
+                    permanent:false,
+                }
+            }
+       }
     }
 
     return{
-        props:{session,}
+        props:{
+            session:JSON.parse(JSON.stringify(session))
+        }
     }
 }
 
