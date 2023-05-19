@@ -46,7 +46,7 @@ export default function MainNav() {
                     }
                 </li>
                 <li className={navbarStyles.responsiveMenuItems}>
-                    <Link href='#' className={navbarStyles.navText}>Post a job</Link>
+                    <Link href='/org/post-job' className={navbarStyles.navText}>Post a job</Link>
                 </li>
                 <li>
                     <HiOutlineMenu 
