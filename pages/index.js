@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import Link from 'next/link';
 import { useState, useEffect, useContext } from 'react';
 import { AppContext } from '@/settings/context/appContext';
 import { GiMagnifyingGlass } from 'react-icons/gi'
@@ -36,9 +37,9 @@ export default function Home() {
           </div>
 
           <div className={styles.otherActions}>
-            <button className={styles.quickFinder}>RECENT JOBS</button>
-            <button className={styles.quickFinder}>HIGH PAYING JOBS</button>
-            <button className={styles.quickFinder}>CLOSING SOON</button>
+            <Link href="/jobs" className={styles.quickFinder}>RECENT JOBS</Link>
+            <Link href="/jobs?by=salary" className={styles.quickFinder}>HIGH PAYING JOBS</Link>
+            <Link href="#" className={styles.quickFinder}>CLOSING SOON</Link>
           </div>
         </div>
       </main>
@@ -55,5 +56,5 @@ const styles={
   searchBtn:'bg-indigo-800 flex justify-center items-center text-white font-bold py-5 px-6 rounded-full cursor-pointer',
   message:'text-center mt-2 font-bold',
   otherActions:'flex flex-row justify-center gap-4',
-  quickFinder:'md:w-[200px] md:h-[70px] py-4 px-4 bg-indigo-800 text-white text-sm font-bold border shadow-lg'
+  quickFinder:'block flex justify-center items-center md:w-[200px] md:h-[70px] py-4 px-4 bg-indigo-800 text-white text-sm font-bold border shadow-lg'
 }
