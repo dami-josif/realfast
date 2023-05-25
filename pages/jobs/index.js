@@ -2,6 +2,13 @@ import Head from "next/head";
 import Link from "next/link";
 import { db } from "@/settings/firebase/firebase.setup";
 import { getDocs,collection,query,orderBy } from "firebase/firestore";
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import { numberWithCommas } from "@/utilities/numberWithCommas";
 
 export async function getStaticProps() {
     const jobs = [];
@@ -39,18 +46,27 @@ export default function Jobs ({jobsData}) {
                 {
                     jobsData.map(item => {
                         return (
-                            <div className="p-3 border border-gray-300 rounded-lg" key={item.id}>
-                                <div className="flex flex-row justify-between mb-2">
-                                    <p className="font-bold text-lg">{item.data.title}</p>
-                                    <p>Salary: {item.data.wages}</p>
-                                </div>
-
-                                <div>
+                            <Card sx={{ minWidth: 280 }}>
+                                <CardContent>
+                                    <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                                    Word of the Day
+                                    </Typography>
+                                    <Typography variant="h5" component="div">
+                                    {item.data.title}
+                                    </Typography>
+                                    <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                                    ₦{numberWithCommas(item.data.wages)}
+                                    </Typography>
+                                    <Typography variant="body2">
                                     {item.data.desc}
-                                </div>
-
-                                <Link href={'jobs/'+item.data.url} className="bg-indigo-800 text-white text-2xl px-4 rounded-md">Job Details</Link>
-                            </div>
+                                    <br />
+                                    {'"a benevolent smile"'}
+                                    </Typography>
+                                </CardContent>
+                                <CardActions>
+                                    <Button href={'jobs/'+item.data.url} size="small" variant="contained">View Job</Button>
+                                </CardActions>
+                            </Card>
                         )
                     })
                 }
